@@ -1,0 +1,139 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "laravel property",
+        "contact": {
+            "name": "Github Repository",
+            "url": "https://github.com/NIKFED/laravel-property"
+        },
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8030/api",
+            "description": "Localhost server api"
+        }
+    ],
+    "paths": {
+        "/properties": {
+            "get": {
+                "tags": [
+                    "Properties"
+                ],
+                "summary": "Get properties list",
+                "description": "Get properties list with filters",
+                "operationId": "8adf02ac3c8ab1b3c0257b9c8879cb50",
+                "parameters": [
+                    {
+                        "name": "Request",
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/components/schemas/Property_Index_Request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Property list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Property_Resource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Property_Index_Request": {
+                "properties": {
+                    "per_page": {
+                        "description": "Properties per page",
+                        "type": "integer",
+                        "example": 20
+                    },
+                    "filter[user_name]": {
+                        "description": "Filter by user_name",
+                        "type": "string",
+                        "example": "Alex"
+                    },
+                    "filter[min_price]": {
+                        "description": "Filter by min price",
+                        "type": "integer",
+                        "example": 100000
+                    },
+                    "filter[max_price]": {
+                        "description": "Filter by max price",
+                        "type": "integer",
+                        "example": 300000
+                    },
+                    "filter[bedrooms]": {
+                        "description": "Filter by bedroom count",
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "filter[bathrooms]": {
+                        "description": "Filter by bathroom count",
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "filter[storeys]": {
+                        "description": "Filter by storey count",
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "filter[garages]": {
+                        "description": "Filter by garage count",
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "sort": {
+                        "description": "price, bedrooms, bathrooms, storeys, of garages",
+                        "type": "string",
+                        "example": "price"
+                    }
+                },
+                "type": "object"
+            },
+            "Property_Resource": {
+                "properties": {
+                    "user_name": {
+                        "description": "User name",
+                        "type": "string",
+                        "example": "Alex"
+                    },
+                    "price": {
+                        "description": "Property price",
+                        "type": "integer",
+                        "example": 100000
+                    },
+                    "bedrooms": {
+                        "description": "Bedrooms count",
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "bathrooms": {
+                        "description": "Bathrooms count",
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "storeys": {
+                        "description": "Storeys count",
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "garages": {
+                        "description": "Garages count",
+                        "type": "integer",
+                        "example": 3
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

@@ -12,6 +12,7 @@ const {
     pageSize,
     currentPage,
     setPage,
+    handleSizeChange,
     addPagination,
     addSearch,
     addSort,
@@ -26,7 +27,7 @@ const isPropertiesTableLoading = ref(false)
 
 
 watch(searchFilters, () => {
-  fetchProperties()
+  updatePage(1)
 })
 
 const fetchProperties = async () => {
@@ -43,9 +44,9 @@ const fetchProperties = async () => {
     addSearch(searchParams, key, searchFilters[key])
   })
 
-  // if (sortBy.value !== '') {
-  //     addSort(searchParams, sortBy.value)
-  // }
+  if (sortBy.value !== '') {
+    addSort(searchParams, sortBy.value)
+  }
 
   try {
     await axios.get<IPaginationData<IProperty[]>>(import.meta.env.VITE_API_URL + '/properties?' + searchParams.toString())
@@ -70,6 +71,39 @@ fetchProperties()
 
 const resetFilters = () => {
   searchFilters.user_name = ''
+}
+
+const sortChange = (sortField: {
+  column: string,
+  prop: string,
+  order: string,
+}) => {
+  changeSortDirection(sortField)
+  fetchProperties()
+}
+
+function changeSortDirection(sort: {
+  column: string,
+  prop: string,
+  order: string,
+}): void {
+  if (sort.order === 'ascending') {
+    sortBy.value = sort.prop
+  } else if (sort.order === 'descending') {
+    sortBy.value = '-' + sort.prop
+  } else {
+    sortBy.value = ''
+  }
+}
+
+const updatePage = (page: number) => {
+  setPage(page)
+  fetchProperties()
+}
+
+function handleSizeChangeWithFetch(size: number) {
+  handleSizeChange(size)
+  updatePage(1)
 }
 </script>
 
@@ -162,6 +196,7 @@ const resetFilters = () => {
       v-loading="isPropertiesTableLoading"
       empty-text="No properties for the specified filters"
       :data="properties"
+      @sort-change="sortChange"
       border
     >
       <el-table-column
@@ -171,24 +206,39 @@ const resetFilters = () => {
       <el-table-column
           prop="price"
           label="Price"
-          align="center" />
+          align="center"
+          sortable="custom" />
       <el-table-column
           prop="bedrooms"
           label="Bedrooms"
-          align="center" />
+          align="center" 
+          sortable="custom" />
       <el-table-column
           prop="bathrooms"
           label="Bathrooms"
-          align="center" />
+          align="center"
+          sortable="custom" />
       <el-table-column
           prop="storeys"
           label="Storeys"
-          align="center" />
+          align="center"
+          sortable="custom" />
       <el-table-column
           prop="garages"
           label="Garages"
-          align="center" />
+          align="center"
+          sortable="custom" />
     </el-table>
+
+    <el-pagination
+      class="mt-3"
+      v-model:page-size="pageSize"
+      layout="sizes, prev, pager, next"
+      :total="totalProperties"
+      :current-page="currentPage"
+      @current-change="updatePage"
+      @size-change="handleSizeChangeWithFetch"
+      :page-sizes="[2, 5, 20]" />
   </div>
 </template>
 

@@ -1,11 +1,15 @@
 import { Ref, ref } from 'vue'
 
 export const useQueryParams = () => {
-  const pageSize: Ref<number> = ref<number>(40)
+  const pageSize: Ref<number> = ref<number>(20)
   const currentPage: Ref<number> = ref<number>(1)
 
   function setPage(page: number): void {
     currentPage.value = page
+  }
+
+  function handleSizeChange(size: number): void {
+    pageSize.value = size
   }
 
   function addPagination(searchParams: URLSearchParams): void {
@@ -25,6 +29,7 @@ export const useQueryParams = () => {
     pageSize,
     currentPage,
     setPage,
+    handleSizeChange,
     addPagination,
     addSearch,
     addSort,
