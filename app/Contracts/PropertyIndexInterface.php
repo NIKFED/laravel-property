@@ -8,5 +8,5 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 interface PropertyIndexInterface
 {
-    public function __invoke(): ResourceCollection;
+    public function __invoke(?int $perPage): ResourceCollection;
 }
