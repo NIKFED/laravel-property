@@ -12,6 +12,7 @@ final class PropertyFactory extends Factory
     public function definition(): array
     {
         $user = User::factory()->createOne();
+
         return [
             'user_id' => $user->id,
             'price' => $this->faker->numberBetween(1, 100000),

@@ -14,12 +14,13 @@ final class PropertySeeder extends Seeder
     {
         Property::query()->truncate();
 
-        $csvFile = fopen(base_path("database/data/property-data.csv"), "r");
+        $csvFile = fopen(base_path('database/data/property-data.csv'), 'r');
 
         $isFirstLine = true;
         while (($data = fgetcsv($csvFile, 200))) {
             if ($isFirstLine) {
                 $isFirstLine = false;
+
                 continue;
             }
 

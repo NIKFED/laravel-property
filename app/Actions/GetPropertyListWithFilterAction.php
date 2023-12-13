@@ -6,7 +6,6 @@ namespace App\Actions;
 
 use App\Contracts\PropertyIndexInterface;
 use App\Http\Resources\PropertyResource;
-use App\Models\Property;
 use App\Queries\GetPropertyListQuery;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 

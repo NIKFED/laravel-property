@@ -12,7 +12,7 @@ use Illuminate\Support\ServiceProvider;
 final class BindServiceProvider extends ServiceProvider
 {
     public array $bindings = [
-//        PropertyIndexInterface::class => GetPropertyListAction::class,
+        //        PropertyIndexInterface::class => GetPropertyListAction::class,
         PropertyIndexInterface::class => GetPropertyListWithFilterAction::class,
     ];
 }

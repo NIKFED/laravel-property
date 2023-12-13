@@ -12,6 +12,6 @@ final class UserNameSearchFilter implements Filter
 {
     public function __invoke(Builder $query, $value, string $property): void
     {
-        $query->whereHas('user', fn(UserBuilder $builder) => $builder->whereName($value));
+        $query->whereHas('user', fn (UserBuilder $builder) => $builder->whereName($value));
     }
 }
