@@ -1,11 +1,11 @@
 Instruction:
 
-1. ./vendor/bin/sail up -d (or alias sail up -d)
-2. sail php migrate
-   
-   sail php db:seed
-4. Install dependecies:
-   composer i
-   
-   pnpm i
-6. pnpm run dev
+make init: Init docker containers + install dependencies + migrations and seeding csv into db + run front
+
+make up: Up docker containers + run front
+
+make down: Down docker containers
+
+The application is available at http://localhost:8030
+
+Swagger docs: http://localhost:8030/api/documentation
