@@ -8,7 +8,7 @@ use App\Models\Property;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
-final class PropertySeeder extends Seeder
+final class PropertyFromCsvSeeder extends Seeder
 {
     public function run(): void
     {

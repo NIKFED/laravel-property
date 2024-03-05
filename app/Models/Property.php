@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\Traits\Searchable;
 use Database\Factories\PropertyFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,6 +24,8 @@ use Illuminate\Support\Carbon;
  * @property int $garages
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property string|null $description
+ * @property array $tags
  * @property-read User $user
  *
  * @method static PropertyFactory factory($count = null, $state = [])
@@ -33,6 +36,7 @@ use Illuminate\Support\Carbon;
 final class Property extends Model
 {
     use HasFactory;
+    use Searchable;
 
     protected $fillable = [
         'user_id',
@@ -46,6 +50,10 @@ final class Property extends Model
     protected $hidden = [
         'created_at',
         'updated_at',
+    ];
+
+    protected $casts = [
+        'tags' => 'json',
     ];
 
     public function user(): BelongsTo

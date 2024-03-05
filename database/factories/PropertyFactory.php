@@ -11,7 +11,9 @@ final class PropertyFactory extends Factory
 {
     public function definition(): array
     {
-        $user = User::factory()->createOne();
+        $user = User::factory([
+            'email' => $this->faker->unique()->email(),
+        ])->createOne();
 
         return [
             'user_id' => $user->id,
@@ -20,6 +22,11 @@ final class PropertyFactory extends Factory
             'bathrooms' => $this->faker->numberBetween(1, 3),
             'storeys' => $this->faker->numberBetween(1, 3),
             'garages' => $this->faker->numberBetween(1, 3),
+            'description' => $this->faker->text(2000),
+            'tags' => collect(['php', 'ruby', 'java', 'javascript', 'bash'])
+                ->random(2)
+                ->values()
+                ->all(),
         ];
     }
 }

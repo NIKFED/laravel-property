@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Contracts\PropertyIndexInterface;
+use App\Contracts\PropertySearchInterface;
 use App\Http\Requests\PropertyIndexRequest;
+use App\Http\Requests\PropertySearchRequest;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use OpenApi\Attributes\Get;
 use OpenApi\Attributes\JsonContent;
@@ -44,5 +46,15 @@ final class PropertyController extends Controller
         $perPage = (int) $request->validated('per_page');
 
         return $propertyIndexAction($perPage);
+    }
+
+    /**
+     * @param PropertySearchRequest $request
+     * @param PropertySearchInterface $propertySearchAction
+     * @return ResourceCollection
+     */
+    public function search(PropertySearchRequest $request, PropertySearchInterface $propertySearchAction): ResourceCollection
+    {
+        return $propertySearchAction($request->validated('search'));
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions;
 
 use App\Contracts\PropertyIndexInterface;
+use App\Contracts\SearchRepository;
 use App\Enums\PaginationEnum;
 use App\Http\Resources\PropertyResource;
 use App\Queries\GetPropertyListQuery;
