@@ -6,7 +6,7 @@ namespace App\Contracts;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-interface PropertySearchInterface
+interface PropertySearchContract
 {
     public function __invoke(string $search = ''): ResourceCollection;
 }

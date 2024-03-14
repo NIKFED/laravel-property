@@ -7,15 +7,15 @@ namespace App\Providers;
 //use App\Actions\GetPropertyListAction;
 use App\Actions\GetPropertyListWithFilterAction;
 use App\Actions\GetSearchPropertyListAction;
-use App\Contracts\PropertyIndexInterface;
-use App\Contracts\PropertySearchInterface;
+use App\Contracts\PropertyIndexContract;
+use App\Contracts\PropertySearchContract;
 use Illuminate\Support\ServiceProvider;
 
 final class BindServiceProvider extends ServiceProvider
 {
     public array $bindings = [
-        //        PropertyIndexInterface::class => GetPropertyListAction::class,
-        PropertyIndexInterface::class => GetPropertyListWithFilterAction::class,
-        PropertySearchInterface::class => GetSearchPropertyListAction::class,
+        //        PropertyIndexContract::class => GetPropertyListAction::class,
+        PropertyIndexContract::class  => GetPropertyListWithFilterAction::class,
+        PropertySearchContract::class => GetSearchPropertyListAction::class,
     ];
 }

@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Contracts\SearchRepository;
+use App\Contracts\SearchRepositoryContract;
 use App\Repositories\ElasticsearchRepository;
 use App\Repositories\PropertySearchRepository;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(IdeHelperServiceProvider::class);
         }
 
-        $this->app->bind(SearchRepository::class, function ($app) {
+        $this->app->bind(SearchRepositoryContract::class, function ($app) {
             // This is useful in case we want to turn off our
             // search cluster or when deploying the search
             // to a live, running application at first.

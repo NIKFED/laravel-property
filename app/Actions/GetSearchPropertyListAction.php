@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use App\Contracts\PropertySearchInterface;
-use App\Contracts\SearchRepository;
-use App\Http\Resources\PropertyResource;
+use App\Contracts\PropertySearchContract;
+use App\Contracts\SearchRepositoryContract;
+use App\Http\Resources\PropertySearchResource;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-final class GetSearchPropertyListAction implements PropertySearchInterface
+final class GetSearchPropertyListAction implements PropertySearchContract
 {
     /**
      * @throws BindingResolutionException
@@ -18,10 +18,10 @@ final class GetSearchPropertyListAction implements PropertySearchInterface
     public function __invoke(string $search = ''): AnonymousResourceCollection
     {
         $properties = app()
-            ->make(SearchRepository::class)
+            ->make(SearchRepositoryContract::class)
             ->search($search);
 
-        return PropertyResource::collection(
+        return PropertySearchResource::collection(
             $properties,
         );
     }

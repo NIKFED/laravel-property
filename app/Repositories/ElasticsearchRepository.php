@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
+use App\Contracts\SearchRepositoryContract;
 use App\Models\Property;
 use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\Exception\ClientResponseException;
@@ -11,10 +12,10 @@ use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
 
-final class ElasticsearchRepository extends PropertySearchRepository
+final readonly class ElasticsearchRepository implements SearchRepositoryContract
 {
     public function __construct(
-        private readonly Client $elasticsearch,
+        private Client $elasticsearch,
     )
     {
     }
@@ -26,6 +27,7 @@ final class ElasticsearchRepository extends PropertySearchRepository
     public function search(string $query = ''): Collection
     {
         $items = $this->searchOnElasticsearch($query);
+//        dd($items);
 
         return $this->buildCollection($items);
     }
@@ -41,6 +43,7 @@ final class ElasticsearchRepository extends PropertySearchRepository
         return $this->elasticsearch->search([
             'index' => $model->getSearchIndex(),
             'type' => $model->getSearchType(),
+            'size' => 10000,
             'body' => [
                 'query' => [
                     'bool' => [

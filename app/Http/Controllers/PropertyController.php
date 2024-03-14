@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Contracts\PropertyIndexInterface;
-use App\Contracts\PropertySearchInterface;
+use App\Contracts\PropertyIndexContract;
+use App\Contracts\PropertySearchContract;
 use App\Http\Requests\PropertyIndexRequest;
 use App\Http\Requests\PropertySearchRequest;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -41,7 +41,7 @@ final class PropertyController extends Controller
             ),
         ],
     )]
-    public function index(PropertyIndexRequest $request, PropertyIndexInterface $propertyIndexAction): ResourceCollection
+    public function index(PropertyIndexRequest $request, PropertyIndexContract $propertyIndexAction): ResourceCollection
     {
         $perPage = (int) $request->validated('per_page');
 
@@ -50,10 +50,10 @@ final class PropertyController extends Controller
 
     /**
      * @param PropertySearchRequest $request
-     * @param PropertySearchInterface $propertySearchAction
+     * @param PropertySearchContract $propertySearchAction
      * @return ResourceCollection
      */
-    public function search(PropertySearchRequest $request, PropertySearchInterface $propertySearchAction): ResourceCollection
+    public function search(PropertySearchRequest $request, PropertySearchContract $propertySearchAction): ResourceCollection
     {
         return $propertySearchAction($request->validated('search'));
     }

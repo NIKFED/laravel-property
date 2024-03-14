@@ -25,7 +25,7 @@ final class ReindexElasticsearchCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Indexes all articles to Elasticsearch';
+    protected $description = 'Indexes all properties to Elasticsearch';
 
     public function __construct(
         private readonly Client $elasticsearch,
@@ -41,8 +41,7 @@ final class ReindexElasticsearchCommand extends Command
      */
     public function handle(): void
     {
-        $this->info('Indexing all properties. This might take a while...');
-
+        $this->info('Indexing all properties...');
 
         foreach (Property::query()->cursor() as $property)
         {
@@ -53,7 +52,6 @@ final class ReindexElasticsearchCommand extends Command
                 'body' => $property->toSearchArray(),
             ]);
 
-            // PHPUnit-style feedback
             $this->output->write('.');
         }
 

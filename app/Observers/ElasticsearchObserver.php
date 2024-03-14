@@ -32,6 +32,21 @@ final readonly class ElasticsearchObserver
     }
 
     /**
+     * @throws ServerResponseException
+     * @throws ClientResponseException
+     * @throws MissingParameterException
+     */
+    public function created(Model $model): void
+    {
+        $this->elasticsearchClient->index([
+            'index' => $model->getSearchIndex(),
+            'type' => $model->getSearchType(),
+            'id' => $model->getKey(),
+            'body' => $model->toSearchArray(),
+        ]);
+    }
+
+    /**
      * @throws ClientResponseException
      * @throws ServerResponseException
      * @throws MissingParameterException

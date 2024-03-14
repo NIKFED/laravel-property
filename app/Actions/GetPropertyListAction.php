@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use App\Contracts\PropertyIndexInterface;
+use App\Contracts\PropertyIndexContract;
 use App\Enums\PaginationEnum;
 use App\Http\Resources\PropertyResource;
 use App\Models\Property;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-final class GetPropertyListAction implements PropertyIndexInterface
+final class GetPropertyListAction implements PropertyIndexContract
 {
     public function __invoke(?int $perPage): AnonymousResourceCollection
     {

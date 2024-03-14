@@ -6,7 +6,7 @@ namespace App\Contracts;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-interface PropertyIndexInterface
+interface PropertyIndexContract
 {
     public function __invoke(?int $perPage): ResourceCollection;
 }
