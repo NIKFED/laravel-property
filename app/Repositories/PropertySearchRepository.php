@@ -19,7 +19,7 @@ class PropertySearchRepository implements SearchRepositoryContract
 //                $builder->where('description', 'ILIKE', "%$query%")
 //                    ->orWhere('tags', 'ILIKE', "%$query%")
 //                ))
-//                ->limit(10000)
+//                ->limit(10)
 //                ->get()
 //        );
         return Property::query()
@@ -27,7 +27,7 @@ class PropertySearchRepository implements SearchRepositoryContract
                 $builder->where('description', 'ILIKE', "%$query%")
                     ->orWhere('tags', 'ILIKE', "%$query%")
             ))
-            ->limit(10000)
+            ->limit(10)
             ->get();
     }
 }

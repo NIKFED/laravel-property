@@ -43,7 +43,6 @@ final readonly class ElasticsearchRepository implements SearchRepositoryContract
         return $this->elasticsearch->search([
             'index' => $model->getSearchIndex(),
             'type' => $model->getSearchType(),
-            'size' => 10000,
             'body' => [
                 'query' => [
                     'bool' => [
