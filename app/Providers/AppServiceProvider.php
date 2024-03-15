@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use App\Contracts\SearchRepositoryContract;
@@ -37,10 +39,8 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
-
         $this->bindSearchClient();
     }
-
 
     private function bindSearchClient(): void
     {

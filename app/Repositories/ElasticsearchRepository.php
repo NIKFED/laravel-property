@@ -16,9 +16,7 @@ final readonly class ElasticsearchRepository implements SearchRepositoryContract
 {
     public function __construct(
         private Client $elasticsearch,
-    )
-    {
-    }
+    ) {}
 
     /**
      * @throws ClientResponseException
@@ -27,7 +25,7 @@ final readonly class ElasticsearchRepository implements SearchRepositoryContract
     public function search(string $query = ''): Collection
     {
         $items = $this->searchOnElasticsearch($query);
-//        dd($items);
+        //        dd($items);
 
         return $this->buildCollection($items);
     }
@@ -38,7 +36,7 @@ final readonly class ElasticsearchRepository implements SearchRepositoryContract
      */
     private function searchOnElasticsearch(string $query = ''): array
     {
-        $model = new Property;
+        $model = new Property();
 
         return $this->elasticsearch->search([
             'index' => $model->getSearchIndex(),

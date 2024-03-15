@@ -12,9 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 final readonly class ElasticsearchObserver
 {
-    public function __construct(private Client $elasticsearchClient)
-    {
-    }
+    public function __construct(private Client $elasticsearchClient) {}
 
     /**
      * @throws ServerResponseException

@@ -25,6 +25,7 @@ trait Searchable
         if (property_exists($this, 'useSearchType')) {
             return $this->useSearchType;
         }
+
         return $this->getTable();
     }
 

@@ -29,8 +29,7 @@ final class ReindexElasticsearchCommand extends Command
 
     public function __construct(
         private readonly Client $elasticsearch,
-    )
-    {
+    ) {
         parent::__construct();
     }
 
@@ -43,8 +42,7 @@ final class ReindexElasticsearchCommand extends Command
     {
         $this->info('Indexing all properties...');
 
-        foreach (Property::query()->cursor() as $property)
-        {
+        foreach (Property::query()->cursor() as $property) {
             $this->elasticsearch->index([
                 'index' => $property->getSearchIndex(),
                 'type' => $property->getSearchType(),
