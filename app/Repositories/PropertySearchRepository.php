@@ -13,15 +13,6 @@ class PropertySearchRepository implements SearchRepositoryContract
 {
     public function search(string $query): Collection
     {
-        //        dd(
-        //            \Illuminate\Support\Facades\DB::table('properties')
-        //                ->where(fn ($builder) => (
-        //                $builder->where('description', 'ILIKE', "%$query%")
-        //                    ->orWhere('tags', 'ILIKE', "%$query%")
-        //                ))
-        //                ->limit(10)
-        //                ->get()
-        //        );
         return Property::query()
             ->where(fn(Builder $builder) => (
                 $builder->where('description', 'ILIKE', "%$query%")

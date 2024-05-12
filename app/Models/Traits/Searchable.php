@@ -15,12 +15,12 @@ trait Searchable
         }
     }
 
-    public function getSearchIndex()
+    public function getSearchIndex(): string
     {
         return $this->getTable();
     }
 
-    public function getSearchType()
+    public function getSearchType(): string
     {
         if (property_exists($this, 'useSearchType')) {
             return $this->useSearchType;
@@ -29,7 +29,7 @@ trait Searchable
         return $this->getTable();
     }
 
-    public function toSearchArray()
+    public function toSearchArray(): array
     {
         return $this->toArray();
     }

@@ -13,18 +13,8 @@ use Illuminate\Console\Command;
 
 final class ReindexElasticsearchCommand extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'search:reindex';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Indexes all properties to Elasticsearch';
 
     public function __construct(
@@ -42,6 +32,9 @@ final class ReindexElasticsearchCommand extends Command
     {
         $this->info('Indexing all properties...');
 
+        $bar = $this->output->createProgressBar(Property::query()->count());
+        $bar->start();
+
         foreach (Property::query()->cursor() as $property) {
             $this->elasticsearch->index([
                 'index' => $property->getSearchIndex(),
@@ -49,10 +42,10 @@ final class ReindexElasticsearchCommand extends Command
                 'id' => $property->getKey(),
                 'body' => $property->toSearchArray(),
             ]);
-
-            $this->output->write('.');
+            $bar->advance();
         }
 
+        $bar->finish();
         $this->info("\nDone!");
     }
 }

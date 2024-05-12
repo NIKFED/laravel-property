@@ -27,10 +27,6 @@ use Illuminate\Support\Carbon;
  * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
  *
  * @method static UserFactory factory($count = null, $state = [])
- * @method static UserBuilder|User newModelQuery()
- * @method static UserBuilder|User newQuery()
- * @method static UserBuilder|User query()
- * @method static UserBuilder|User whereName(string $value)
  */
 class User extends Authenticatable
 {

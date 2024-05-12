@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Contracts\SearchableContract;
 use App\Models\Traits\Searchable;
 use Database\Factories\PropertyFactory;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -18,10 +19,7 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property int $user_id
  * @property int $price
- * @property int $bedrooms
- * @property int $bathrooms
  * @property int $storeys
- * @property int $garages
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $description
@@ -29,11 +27,8 @@ use Illuminate\Support\Carbon;
  * @property-read User $user
  *
  * @method static PropertyFactory factory($count = null, $state = [])
- * @method static Builder|Property newModelQuery()
- * @method static Builder|Property newQuery()
- * @method static Builder|Property query()
  */
-final class Property extends Model
+final class Property extends Model implements SearchableContract
 {
     use HasFactory;
     use Searchable;
@@ -41,10 +36,7 @@ final class Property extends Model
     protected $fillable = [
         'user_id',
         'price',
-        'bedrooms',
-        'bathrooms',
         'storeys',
-        'garages',
     ];
 
     protected $hidden = [
@@ -59,5 +51,18 @@ final class Property extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function rooms(): BelongsToMany
+    {
+        return $this->belongsToMany(Room::class, 'property_room');
+    }
+
+    public function toSearchArray(): array
+    {
+        return [
+            ...$this->only(['id', 'description', 'tags']),
+            'rooms' => $this->rooms->map(fn(Room $room) => $room->toSearchArray())->toArray(),
+        ];
     }
 }

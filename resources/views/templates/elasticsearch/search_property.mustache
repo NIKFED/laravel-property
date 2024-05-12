@@ -1,0 +1,8 @@
+{
+  "query": {
+    "multi_match": {
+      "query": "{{query}}",
+      "fields": ["description", "tags", "rooms.additional_info.state", "rooms.additional_info.status"]
+    }
+  }
+}
